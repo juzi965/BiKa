@@ -1,5 +1,6 @@
 import uuid
 import hmac
+import json
 import hashlib
 import configparser
 
@@ -14,12 +15,16 @@ class PropertyUtil:
         self.USER_NAME = config['userInfo']['userName']
         # 密码
         self.PASSWORD = config['userInfo']['password']
+        # json对象的用户登录信息
+        self.USER_INFO = json.dumps({"email": self.USER_NAME, "password": self.PASSWORD})
         # 域名
         self.DOMAIN = config['param']['domain']
         # 应用KEY
         self.API_KEY = config['param']['apiKey']
         # 密钥
         self.SECRET_KEY = config['param']['secretKey']
+        # TOKEN
+        self.AUTHORIZATION = config['param']['authorization']
         # APP版本
         self.APP_VERSION = config['param']['appVersion']
         # UA
@@ -50,15 +55,19 @@ class PropertyUtil:
             'user-agent': self.USER_AGENT,
             'app-version': self.APP_VERSION,
             'app-channel': self.APP_CHANNEL,
+            'authorization': self.AUTHORIZATION,
             'app-build-version': self.APP_BUILD_VERSION,
             'time': tm,
             'signature': signature,
-            'authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2RlY2M5Y2RlMGFjMTRiYmRkZDA1NDciLCJlbWFpbCI6Imp1emk5NjUiLCJyb2xlIjoibWVtYmVyIiwibmFtZSI6IuahlOWtkFlZIiwidmVyc2lvbiI6IjIuMi4xLjAuMS4yIiwiYnVpbGRWZXJzaW9uIjoiNDMiLCJwbGF0Zm9ybSI6ImFuZHJvaWQiLCJpYXQiOjE1NzEwNjI5NjUsImV4cCI6MTU3MTY2Nzc2NX0.F4nQNYdzVyMLfRrN-nI5VGxYEbAr7sJs4K4TRSD--GA",
             'Host': 'picaapi.picacomic.com',
             'accept': 'application/vnd.picacomic.com.v1+json',
             'app-uuid': 'defaultUuid',
             'image-quality': 'low',
             'app-platform': 'android',
+            "content-type": "application/json; charset=UTF-8",
             'accept-encoding': 'gzip',
         }
         return headers
+
+
+Property = PropertyUtil()
