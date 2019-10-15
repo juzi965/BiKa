@@ -15,7 +15,7 @@ class PropertyUtil:
         self.USER_NAME = config['userInfo']['userName']
         # 密码
         self.PASSWORD = config['userInfo']['password']
-        # json对象的用户登录信息
+        # 用户登录信息
         self.USER_INFO = json.dumps({"email": self.USER_NAME, "password": self.PASSWORD})
         # 域名
         self.DOMAIN = config['param']['domain']
