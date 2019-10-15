@@ -1,0 +1,78 @@
+头部
+GET /categories h2
+Host: picaapi.picacomic.com
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Y2RlY2M5Y2RlMGFjMTRiYmRkZDA1NDciLCJlbWFpbCI6Imp1emk5NjUiLCJyb2xlIjoibWVtYmVyIiwibmFtZSI6IuahlOWtkFlZIiwidmVyc2lvbiI6IjIuMi4xLjAuMS4yIiwiYnVpbGRWZXJzaW9uIjoiNDMiLCJwbGF0Zm9ybSI6ImFuZHJvaWQiLCJpYXQiOjE1NjkwNjg5MjYsImV4cCI6MTU2OTY3MzcyNn0.zzDjcS-f4mH8farG0rwXIq86N0pN1bGJ9ziGxL3Bwwo
+api-key: C69BAF41DA5ABD1FFEDC6D2FEA56B
+accept: application/vnd.picacomic.com.v1+json
+app-channel: 2
+time: 1569125178
+nonce: fcc0c02d4fd246e8bc9937315e84f203
+signature: dfb2828ead5f734513ec4754d256667d6708c18b13a315255162f65b6797361c
+app-version: 2.2.1.0.1.2
+app-uuid: defaultUuid
+image-quality: low
+app-platform: android
+app-build-version: 43
+accept-encoding: gzip
+user-agent: okhttp/3.8.1
+
+
+~d}$Q7$eIni=V)9\RK/P.RM4;9[7|@/CA}b~OW!3?EV`:<>M7pddUBL5n|0/*Cn
+proxies = {"http": "http://104.20.180.50:1087", "https": "http://104.20.181.50:1087"}
+
+分类
+https://picaapi.picacomic.com/categories
+
+关键字
+https://picaapi.picacomic.com/keywords
+
+公告
+https://picaapi.picacomic.com/announcements?page=1
+
+首页轮播图
+https://picaapi.picacomic.com/banners
+
+随机本子
+https://picaapi.picacomic.com/comics/random
+
+最近更新列表
+https://picaapi.picacomic.com/comics?page=1&c=关键字&s=dd
+
+通用类别列表
+https://picaapi.picacomic.com/comics?page=1&c=关键字&s=dd
+
+漫画详情
+https://picaapi.picacomic.com/comics/****_id****
+
+漫画内容
+https://picaapi.picacomic.com/comics/****_id****/order/1/pages?page=1
+
+
+
+
+图片地址
+headers = {
+    'Host': 'img.picacomic.com',
+    'accept-encoding': 'gzip',
+    'user-agent': 'okhttp/3.8.1',
+}
+host
+****fileServer****+****path****-'tobeimg' 
+
+
+
+集数
+https://picaapi.picacomic.com/comics/****_id****/eps?page=1
+
+相关推荐
+https://picaapi.picacomic.com/comics/****_id****/recommendation
+
+
+
+
+
+
+
+
+
+
