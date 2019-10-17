@@ -39,6 +39,14 @@ class PropertyUtil:
         self.SING_URL = self.DOMAIN + "auth/sign-in"
         # 类别地址
         self.CATEGORIES_URL = self.DOMAIN + "categories"
+        # 随机地址
+        self.RANDOM_URL = self.DOMAIN + "comics/random"
+        # 漫画详情地址
+        self.COMIC_INFO_URL = self.DOMAIN + "comics/{comicId}"
+        # 漫画内容
+        self.COMIC_CONTENT_URL = self.DOMAIN + "comics/{comicId}/order/{espNum}/pages?page={pageNum}"
+        # 通用列表地址
+        self.CATEGORIES_URL = self.DOMAIN + "comics?page=1&c={KEY}&s=dd"
 
     def createSignature(self, url, tm, method):
         raw = url.replace("https://picaapi.picacomic.com/", "") + tm + self.UUID + method + self.API_KEY
