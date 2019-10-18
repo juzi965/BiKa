@@ -19,6 +19,8 @@ class PropertyUtil:
         self.USER_INFO = json.dumps({"email": self.USER_NAME, "password": self.PASSWORD})
         # 域名
         self.DOMAIN = config['param']['domain']
+        # 域名
+        self.IMG_DOMAIN = config['param']['imgDamian']
         # 应用KEY
         self.API_KEY = config['param']['apiKey']
         # 密钥
