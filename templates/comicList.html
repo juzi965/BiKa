@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% with title='漫画列表' %}
+{% include 'common/header.html' %}
+{% endwith %}
+
+<body>
+
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top">
+      <a class="navbar-brand" href="/">首页</a>
+      <a class="navbar-brand font-weight-bold" href="#">{{key}}</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          {% for i in range(1,11) %}
+          {% if pageNum|int == i%}
+          <li class="nav-item active">
+            <a class="nav-link" href="/comicList/{{key}}/{{i}}/{{orderType}}">第{{i}}页<span
+                class="sr-only">(current)</span></a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/comicList/{{key}}/{{i}}/{{orderType}}">{{i}}</a>
+          </li>
+          {% endif %}
+          {% endfor %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {% if orderType == 'ua' %}
+              默认
+              {% elif orderType == 'dd'%}
+              新到旧
+              {% elif orderType == 'da'%}
+              旧到新
+              {% elif orderType == 'ld'%}
+              点赞最多
+              {% elif orderType == 'vd'%}
+              推荐最多
+              {% else%}
+              未知排序方式
+              {% endif %}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item {% if orderType == 'ua'%} active {% endif %}"
+                href="/comicList/{{key}}/{{pageNum}}/ua">默认</a>
+              <a class="dropdown-item {% if orderType == 'dd'%} active {% endif %}"
+                href="/comicList/{{key}}/{{pageNum}}/dd">新到旧</a>
+              <a class="dropdown-item {% if orderType == 'da'%} active {% endif %}"
+                href="/comicList/{{key}}/{{pageNum}}/da">旧到新</a>
+              <a class="dropdown-item {% if orderType == 'ld'%} active {% endif %}"
+                href="/comicList/{{key}}/{{pageNum}}/ld">点赞最多</a>
+              <a class="dropdown-item {% if orderType == 'vd'%} active {% endif %}"
+                href="/comicList/{{key}}/{{pageNum}}/vd">推荐最多</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="row justify-content-center row-cols-2 row-cols-lg-4 row-cols-md-3 mt-3">
+      {% for comic in comicList.data.comics.docs %}
+      <div class="col">
+        <div class="card text-center text-white">
+          <img src="/getImg/{{comic.thumb.path}}" class="card-img-top img-responsive" alt="">
+          <div class="card-img-overlay" style="background-color: rgba(0, 0, 0, 0.4);">
+            <h5 class="card-title" style="font-size: .9rem;">{{comic.title}}</h5>
+            <p class="card-text" style="font-size: .85rem;">{{comic.categories}}</p>
+            <p class="card-text" style="font-size: .85rem;">页数：{{comic.pagesCount}}</p>
+            <p class="card-text" style="font-size: .85rem;">总集数：{{comic.epsCount}}</p>
+            <a href="/comicInfo/{{comic._id}}" class="btn btn-primary btn-sm">去阅读</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+
+
+
+
+  {% include 'common/footer.html' %}
+</body>
+
+</html>

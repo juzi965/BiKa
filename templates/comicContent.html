@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% with title=data.data.ep.title %}
+{% include 'common/header.html' %}
+{% endwith %}
+
+<body>
+  <div class="container-fluid">
+    <nav class="navbar navbar-light bg-light flex-top mb-3 justify-content-center">
+      <a class="navbar-brand" href="/">首页</a>
+    </nav>
+    <div class="row text-center">
+      {% for item in data.data.pages.docs %}
+      <div class="col-12">
+        <img class="img-fluid" title="{{item.media.originalName}}"
+          src="/getOriginalImg/{{item.media.fileServer.replace('https://','')}}/{{item.media.path}}">
+      </div>
+      {% endfor %}
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <nav>
+          <ul class="pagination justify-content-center">
+            {% if pageNum|int >1 %}
+            <li class="page-item">
+              <a class="page-link" href="/comicContent/{{comicId}}/{{espNum}}/{{pageNum|int - 1}}">上一页</a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+              <a class="page-link"
+                href="/comicContent/{{comicId}}/{{espNum}}/{{pageNum}}">共{{data.data.pages.pages}}页/第{{pageNum}}页</a>
+            </li>
+            {% if pageNum|int < data.data.pages.pages|int %}
+            <li class="page-item">
+              <a class="page-link" href="/comicContent/{{comicId}}/{{espNum}}/{{pageNum|int + 1}}">下一页</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <nav>
+          <ul class="pagination justify-content-center">
+            {% if espNum|int >1 %}
+            <li class="page-item">
+              <a class="page-link" href="/comicContent/{{comicId}}/{{espNum|int - 1}}/1">上一集</a>
+            </li>
+            {% endif %}
+            <li class="page-item active">
+              <a class="page-link"
+                href="/comicContent/{{comicId}}/{{i}}/1">共{{info.data.comic.epsCount}}集/第{{espNum}}集</a>
+            </li>
+            {% if espNum|int < info.data.comic.epsCount|int %}
+            <li class="page-item">
+              <a class="page-link" href="/comicContent/{{comicId}}/{{espNum|int + 1}}/1">下一集</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+    </div>
+  </div>
+  </div>
+  </div>
+
+
+  {% include 'common/footer.html' %}
+
+</body>
+
+</html>

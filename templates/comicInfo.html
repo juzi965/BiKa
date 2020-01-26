@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% with title=data.data.comic.title %}
+{% include 'common/header.html' %}
+{% endwith %}
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="card m-3" style="width: 100%;">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="/getImg/{{data.data.comic.thumb.path}}" class="card-img"
+              alt="{{data.data.comic.thumb.originalName}}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body text-center">
+              <h5 class="card-title mt-4">{{data.data.comic.title}}</h5>
+              <p class="card-text">{{data.data.comic.categories}}</p>
+              <p class="card-text">页数：{{data.data.comic.pagesCount}}</p>
+              <div class="row no-gutters rounded border border-secondary p-2 justify-content-center">
+                {% for i in range(1,data.data.comic.epsCount+1) %}
+                <div class="col-1">
+                  <a class="" href="/comicContent/{{data.data.comic._id}}/{{i}}/1">{{i}}</a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'common/footer.html' %}
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+{% with title='首页' %}
+{% include 'common/header.html' %}
+{% endwith %}
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="row">
+        <ul class="nav">
+          {% for category in categoryList.data.categories %}
+          <li class="nav-item">
+            <a class="nav-link"
+              href="{% if category.isWeb==true %}{{category.link}}{% else %}/comicList/{{category.title}}/1/ld {%endif%}">
+              {{category.title}}
+              <!-- <img src="{{category.thumb.fileServer}}{{category.thumb.path}}" alt="{{category.thumb.originalName}}"> -->
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="row justify-content-center row-cols-2 row-cols-lg-4 row-cols-md-3">
+        {% for random in randomList.data.comics %}
+        <div class="col mb-2">
+          <div class="card text-center text-white">
+            <img src="/getImg/{{random.thumb.path}}" class="card-img-top img-fluid" alt="{{random.thumb.originalName}}">
+            <div class="card-img-overlay" style="background-color: rgba(0, 0, 0, 0.4);">
+              <h5 class="card-title" style="font-size: .9rem;">{{random.title}}</h5>
+              <p class="card-text" style="font-size: .85rem;">{{random.categories}}</p>
+              <p class="card-text" style="font-size: .85rem;">页数：{{random.pagesCount}}</p>
+              <p class="card-text" style="font-size: .85rem;">总集数：{{random.epsCount}}</p>
+              <a href="/comicInfo/{{random._id}}" class="btn btn-primary btn-sm">去阅读</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% include 'common/footer.html' %}
+  <script>
+    $(function () {
+      // $('img').jqthumb({
+      //   classname: 'jqthumb',
+      //   width: '100%', //宽度
+      //   height: '300px', //高度
+      //   position: {
+      //     y: '50%',
+      //     x: '50%'
+      //   },
+      //   zoom: '1', //缩放比例
+      //   method: 'auto', //提交方法，用于不同的浏览器环境，默认为‘auto’
+      // });
+    });
+  </script>
+</body>
+
+
+</html>

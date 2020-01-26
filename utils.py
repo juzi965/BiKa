@@ -1,8 +1,10 @@
 import uuid
 import hmac
 import json
+import time
 import hashlib
 import configparser
+from os import path
 
 
 class PropertyUtil:
@@ -10,13 +12,16 @@ class PropertyUtil:
     def __init__(self):
         # 读取配置文件
         config = configparser.ConfigParser()
-        config.read('conf/resources.conf')
+        resourcesPath = path.join(path.dirname(
+            path.abspath(__file__)), 'conf/resources.conf')
+        config.read(resourcesPath)
         # 用户名
         self.USER_NAME = config['userInfo']['userName']
         # 密码
         self.PASSWORD = config['userInfo']['password']
         # 用户登录信息
-        self.USER_INFO = json.dumps({"email": self.USER_NAME, "password": self.PASSWORD})
+        self.USER_INFO = json.dumps(
+            {"email": self.USER_NAME, "password": self.PASSWORD})
         # 域名
         self.DOMAIN = config['param']['domain']
         # 域名
@@ -46,18 +51,30 @@ class PropertyUtil:
         # 漫画详情地址
         self.COMIC_INFO_URL = self.DOMAIN + "comics/{comicId}"
         # 漫画内容
-        self.COMIC_CONTENT_URL = self.DOMAIN + "comics/{comicId}/order/{espNum}/pages?page={pageNum}"
+        self.COMIC_CONTENT_URL = self.DOMAIN + \
+            "comics/{comicId}/order/{espNum}/pages?page={pageNum}"
         # 通用列表地址
-        self.CATEGORIES_URL = self.DOMAIN + "comics?page=1&c={KEY}&s=dd"
+        self.COMIC_URL = self.DOMAIN + \
+            "comics?page={pageNum}&c={KEY}&s={orderType}"
+
+    def readCategoryJson(self):
+        jsonPath = path.join(path.dirname(
+            path.abspath(__file__)), 'conf/category.json')
+        with open(jsonPath, 'r', encoding='utf-8') as res:
+            data = json.load(res)
+        return data
 
     def createSignature(self, url, tm, method):
-        raw = url.replace("https://picaapi.picacomic.com/", "") + tm + self.UUID + method + self.API_KEY
+        raw = url.replace("https://picaapi.picacomic.com/", "") + \
+            tm + self.UUID + method + self.API_KEY
         raw = raw.lower()
-        toSignature = hmac.new(self.SECRET_KEY.encode(), digestmod=hashlib.sha256)
+        toSignature = hmac.new(self.SECRET_KEY.encode(),
+                               digestmod=hashlib.sha256)
         toSignature.update(raw.encode())
         return toSignature.hexdigest()
 
-    def createHeaders(self, url, tm, method):
+    def createHeaders(self, url, method):
+        tm = str(time.time())
         signature = self.createSignature(url, tm, method)
         headers = {
             'nonce': self.UUID,
@@ -72,7 +89,7 @@ class PropertyUtil:
             'Host': 'picaapi.picacomic.com',
             'accept': 'application/vnd.picacomic.com.v1+json',
             'app-uuid': 'defaultUuid',
-            'image-quality': 'low',
+            'image-quality': 'original',
             'app-platform': 'android',
             "content-type": "application/json; charset=UTF-8",
             'accept-encoding': 'gzip',
