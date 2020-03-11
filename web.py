@@ -30,10 +30,13 @@ def getImg(picPath):
     picUrl = 'https://img.picacomic.com' + picPath.replace('tobeimg', '')
     return requests.get(picUrl).content
 
-# 获取图片（非原图）
+# 获取图片（原图）
 @server.route('/getOriginalImg/<path:fileServer>/<path:picPath>', methods=['get', 'post'])
 def getOriginalImg(fileServer, picPath):
-    picUrl = 'https://' + fileServer + '/static/' + picPath
+    if 'static' in fileServer:
+        picUrl = fileServer + picPath
+    else:
+        picUrl = 'https://' + fileServer + '/static/' + picPath
     return requests.get(picUrl).content
 
 # 默认页
